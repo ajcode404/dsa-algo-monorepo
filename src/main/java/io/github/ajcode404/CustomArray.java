@@ -3,14 +3,12 @@ package io.github.ajcode404;
 // delete/remove and remove with index
 // replace
 // only grow  logic
-
 import java.util.Arrays;
 
-public class CustomArray {
+public class CustomArray<T> {
     private int size;
-    private int[] arr;
+    private Object[] arr;
     private int currIndex;
-
     private final double growFactor = 1.5;
 
     public CustomArray() {
@@ -19,48 +17,48 @@ public class CustomArray {
 
     public CustomArray(int size) {
         this.size = size;
-        this.arr = new int[size];
+        this.arr = new Object[size];
         this.currIndex = 0;
     }
 
-    public void add(int value) {
+    public void add(T value) {
         add(currIndex, value);
     }
 
-    public void add(int index, int value) {
+    public void add(int index, T value) {
         if (index < 0 || index > currIndex) {
             throw new IllegalArgumentException("Index is wrong");
         }
         if (size == currIndex + 1) {
             growAndCopy();
         }
-        int currValue = arr[index];
+        T currValue = (T) arr[index];
         arr[index] = value;
         currIndex++;
         for (int i = index + 1; i < currIndex; i++) {
-            int temp = arr[i];
+            T temp = (T) arr[i];
             arr[i] = currValue;
             currValue = temp;
         }
     }
 
-    public void replace(int index, int value) {
+    public void replace(int index, T value) {
         if (index < 0 || index > currIndex) {
             throw new IllegalArgumentException("Index is wrong");
         }
         arr[index] = value;
     }
 
-    public int remove(int index) {
+    public T remove(int index) {
         if (index < 0 || index > currIndex) {
             throw new IllegalArgumentException("Index is wrong");
         }
-        int value = arr[index];
+        T value = (T)arr[index];
         for (int i = index; i < currIndex; i++) {
-            int temp = arr[i + 1];
+            T temp = (T)arr[i + 1];
             arr[i] = temp;
         }
-        arr[currIndex] = 0;
+        arr[currIndex] = null;
         currIndex--;
         size--;
         return value;
@@ -69,7 +67,7 @@ public class CustomArray {
     private void growAndCopy() {
         int currSize = size;
         size = (int)(size * growFactor);
-        int[] arr = new int[size];
+        Object[] arr = new Object[size];
         for (int i = 0; i < currSize; i++) {
             arr[i] = this.arr[i];
         }
@@ -77,14 +75,14 @@ public class CustomArray {
     }
 
     public static void main(String[] args) {
-        CustomArray array = new CustomArray();
-        array.add(10);
-        array.add(10);
-        array.add(10);
-        array.add(10);
-        array.add(10);
-        array.add(2, 40);
-        array.remove(2);
+        CustomArray<Character> array = new CustomArray<>();
+        array.add('1');
+        array.add('1');
+        array.add('1');
+        array.add('1');
+        array.add('1');
+        array.add(2, 'c');
+//        array.remove(2);
         System.out.printf(array.toString());
     }
 
