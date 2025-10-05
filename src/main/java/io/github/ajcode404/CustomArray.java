@@ -44,6 +44,27 @@ public class CustomArray {
         }
     }
 
+    public void replace(int index, int value) {
+        if (index < 0 || index > currIndex) {
+            throw new IllegalArgumentException("Index is wrong");
+        }
+        arr[index] = value;
+    }
+
+    public int remove(int index) {
+        if (index < 0 || index > currIndex) {
+            throw new IllegalArgumentException("Index is wrong");
+        }
+        int value = arr[index];
+        for (int i = index; i < currIndex; i++) {
+            int temp = arr[i + 1];
+            arr[i] = temp;
+        }
+        arr[currIndex] = 0;
+        currIndex--;
+        size--;
+        return value;
+    }
 
     private void growAndCopy() {
         int currSize = size;
@@ -63,7 +84,7 @@ public class CustomArray {
         array.add(10);
         array.add(10);
         array.add(2, 40);
-//        array.add(7, 123);
+        array.remove(2);
         System.out.printf(array.toString());
     }
 
