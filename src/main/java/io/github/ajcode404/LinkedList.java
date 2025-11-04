@@ -19,9 +19,6 @@ class Node<T> {
     }
 }
 
-// add
-// remove
-// get
 class CustomLinkedList {
     private int size;
     private Node<Integer> root;
@@ -51,20 +48,16 @@ class CustomLinkedList {
         if (root.data == data) {
             root = root.next;
             return data;
-        }
-        Node<Integer> temp = root.next;
-        Node<Integer> prev = root;
-        boolean isRemoved = false;
-        while (temp != null) {
-            if (temp.data == data) {
-                prev.next = temp.next;
-                isRemoved = true;
-                break;
+        }   
+        Node<Integer> curr = root;
+        while (curr.next != null) {
+            if (curr.next.data == data) {
+                curr.next = curr.next.next;
+                return data;
             }
-            prev = temp;
-            temp = temp.next;
+            curr = curr.next;
         }
-        return isRemoved ? data : -1;
+        return -1;
     }
 
     // traversal
