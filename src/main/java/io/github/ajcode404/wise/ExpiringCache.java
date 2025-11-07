@@ -1,4 +1,4 @@
-package io.github.ajcode404;
+package io.github.ajcode404.wise;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
